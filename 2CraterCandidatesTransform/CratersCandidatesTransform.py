@@ -43,7 +43,7 @@ OpnCrtsPxls = np.where(OpnCrtsData == 1, 1, OpnCrtsData)
 PxlsCoord = np.where(OpnCrtsPxls == 1)
 PxlsCoord = np.array([PxlsCoord[0], PxlsCoord[1]]).swapaxes(0,1)
 # Set the parameters of DBSCAN
-eps = 5
+eps = 2
 min_samples = 10
 # Run DBSCAN clustering.
 DbScan = DBSCAN(eps=eps, min_samples=min_samples).fit(PxlsCoord)
