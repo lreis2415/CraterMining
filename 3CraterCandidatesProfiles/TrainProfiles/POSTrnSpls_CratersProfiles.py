@@ -15,6 +15,7 @@ import matplotlib.pyplot as plt
 import time
 import datetime
 
+Time = datetime.datetime.now()
 Starttime = time.time()
 
 # Define the profiles of craters.
@@ -132,7 +133,8 @@ for i in range(len(lines_attr_set)):
 plt.show()
 
 # Save the result in txt file.
-TxtFileName = (os.getcwd() + "/OutputData/" + "TrnSplsPOSProfiles_attr_set" +
+TxtFileName = (os.getcwd() + "/OutputData/" + "TrnSplsPOSProfiles_attr_set-" +
+               str(Time.year) + "-" + str(Time.month) + "-" + str(Time.day) +
                ".txt")
 fo = open(TxtFileName,'wb')
 for i in range(len(lines_attr_set)):
