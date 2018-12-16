@@ -9,11 +9,14 @@ import numpy as np
 import time
 from sklearn.ensemble import RandomForestClassifier
 import matplotlib.pyplot as plt
+import datetime
 
+Time = datetime.datetime.now()
 Starttime = time.time()
 
 # Read the candidates profiles classification result.
-fTestResultFileName = os.getcwd() + "/OutputData/" + 'TstProfiles_result.txt'
+fTestResultFileName = os.getcwd() + "/OutputData/" + \
+                      'TstProfiles_result-2018-12-10.txt'
 fTestResult = open(fTestResultFileName)
 TestResultData = []
 for line in fTestResult:
@@ -51,7 +54,8 @@ for i in range(len(TestResultData)-1):
         ProfilesProbSum = 0
         ProfilesNumSum = 0
 
-foFileName = os.getcwd() + "/OutputData/" + "CratersResult-Binary.txt"
+foFileName = os.getcwd() + "/OutputData/" + "CratersResult" + str(Time.year) \
+             + "-" + str(Time.month) + "-" + str(Time.day) + ".txt"
 fo = open(foFileName,'wb')
 for i in range(len(CratersResult)):
     for j in range(len(CratersResult[i])):

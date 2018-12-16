@@ -11,6 +11,9 @@ import shapefile
 from pygeoc.raster import RasterUtilClass
 import math
 import matplotlib.pyplot as plt
+import datetime
+
+Time = datetime.datetime.now()
 
 # Define θ=0, π/2, π, 3π/2 line. These four line are skeleton of the lines set.
 #          [0, 1]
@@ -23,7 +26,7 @@ line_theta = [math.pi/6, math.pi/3, 2*math.pi/3, 5*math.pi/6, 7*math.pi/6,
 
 
 centersFileName = (os.getcwd() + "/InputData/" +
-                   "CraterCandidatesObjects_centres")
+                   "CraterCandidatesObjects_centres_r10km")
 centers = shapefile.Reader(centersFileName)
 centers_records = centers.records()
 # centers_info saves centers' rows and cols, IDs, radiuses(pixels).
@@ -39,7 +42,8 @@ DEM = RasterUtilClass.read_raster(DEMFileName)
 DEMdata = DEM.data
 
 # Read the crater candidates' profiles' classification results.
-fTestResultFileName = (os.getcwd() + "/OutputData/" + "TstProfiles_result.txt")
+fTestResultFileName = (os.getcwd() + "/OutputData/" +
+                       "TstProfiles_result-2018-12-10.txt")
 fTestResult = open(fTestResultFileName)
 TestResultData = []
 for line in fTestResult:
@@ -79,14 +83,17 @@ for i in range(len(TestResultData)):
             OutProfiles[temppoint[0], temppoint[1]] = IsCrater
             OutProfilesProb[temppoint[0], temppoint[1]] = float(Prob)
 
-TstPrflsRstFileName1 = (os.getcwd() + "/OutputData/" + "TstPrflsRst_binary.tif")
+TstPrflsRstFileName1 = (os.getcwd() + "/OutputData/" + "TstPrflsRst_binary" +
+                        str(Time.year) + "-" + str(Time.month) + "-" + str(
+                Time.day) + ".tif")
 RasterUtilClass.write_gtiff_file(TstPrflsRstFileName1, DEM.nRows,
                                  DEM.nCols, OutProfiles,
                                  DEM.geotrans, DEM.srs, 32767,
                                  DEM.dataType)
 
-TstPrflsRstFileName2 = (os.getcwd() + "/OutputData/" +
-                       "TstPrflsRst_probability.tif")
+TstPrflsRstFileName2 = (os.getcwd() + "/OutputData/"
+                        +"TstPrflsRst_probability" + str(Time.year) + "-" +
+                        str(Time.month) + "-" + str(Time.day) + ".tif")
 RasterUtilClass.write_gtiff_file(TstPrflsRstFileName2, DEM.nRows,
                                  DEM.nCols, OutProfilesProb,
                                  DEM.geotrans, DEM.srs, 32767,

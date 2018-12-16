@@ -9,12 +9,14 @@ import numpy as np
 import time
 from sklearn.ensemble import RandomForestClassifier
 import matplotlib.pyplot as plt
+import datetime
 
+Time = datetime.datetime.now()
 Starttime = time.time()
 
 # Read the positive train samples.
 TrnSplsPOSFileName = (os.getcwd() + "/InputData/" +
-                      "TrnSplsPOSProfiles_attr_set.txt")
+                      "TrnSplsPOSProfiles_attr_set-2018-12-10.txt")
 TrnSplsPOS = open(TrnSplsPOSFileName)
 TrnSplsPOSPrfls = []
 for line in TrnSplsPOS:
@@ -30,7 +32,7 @@ TrnSplsPOSLabel = np.ones((len(TrnSplsPOSPrfls)))
 
 # Read the negative train samples.
 TrnSplsNEGFileName = (os.getcwd() + "/InputData/" +
-                      "TrnSplsNEGProfiles_attr_set.txt")
+                      "TrnSplsNEGProfiles_attr_set-2018-12-10.txt")
 TrnSplsNEG = open(TrnSplsNEGFileName)
 TrnSplsNEGPrfls = []
 for line in TrnSplsNEG:
@@ -54,7 +56,8 @@ clf = RandomForestClassifier(n_estimators=200, max_features=10,
 clf.fit(TrainData, TrainLabel)
 
 # Read the profiles data of crater candidates in application area.
-TstFileName = (os.getcwd() + "/InputData/" + "TstSplsProfiles_attr_set.txt")
+TstFileName = (os.getcwd() + "/InputData/" +
+               "TstSplsProfiles_attr_set-2018-12-10.txt")
 Tst = open(TstFileName)
 TstPrfls = []
 for line in Tst:
@@ -80,7 +83,8 @@ for i in range(len(TstPrfls)):
 plt.show()
 
 # Save the result by txt file.
-fo = open(os.getcwd() + "/OutputData/" + 'TstProfiles_result.txt', 'wb')
+fo = open(os.getcwd() + "/OutputData/" + 'TstProfiles_result' + str(
+        Time.year) + "-" + str(Time.month) + "-" + str(Time.day) + '.txt', 'wb')
 for i in range(len(TstPrfls)):
     for j in range(5):
         fo.write(str(TstPrfls[i][j]))
