@@ -13,8 +13,10 @@ import math
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 import time
+import os
 import datetime
 
+Time = datetime.datetime.now()
 Starttime = time.time()
 
 # Define the profiles of craters.
@@ -65,7 +67,7 @@ def calc_attributes(line_j, center_elev, center, line_ID):
 # Main function.
 # Read the crater candidates centers' data.
 CentersFileName = (os.getcwd() + "/InputData/" +
-                   "CraterCandidatesObjects_centres")
+                   "CraterCandidatesObjects_centres_r10km")
 Centers = shapefile.Reader(CentersFileName)
 CentersRcds = Centers.records()
 # CentersInf saves centers' information. 1st is row number. 2nd is column
@@ -132,7 +134,8 @@ for i in range(len(lines_attr_set)):
 plt.show()
 
 # Save the result in txt file.
-TxtFileName = (os.getcwd() + "/OutputData/" + "TstSplsProfiles_attr_set" +
+TxtFileName = (os.getcwd() + "/OutputData/" + "TstSplsProfiles_attr_set-" +
+               str(Time.year) + "-" + str(Time.month) + "-" + str(Time.day) +
                ".txt")
 fo = open(TxtFileName,'wb')
 for i in range(len(lines_attr_set)):
