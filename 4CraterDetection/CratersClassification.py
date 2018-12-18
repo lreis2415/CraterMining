@@ -54,7 +54,7 @@ for i in range(len(TestResultData)-1):
         ProfilesProbSum = 0
         ProfilesNumSum = 0
 
-foFileName = os.getcwd() + "/OutputData/" + "CratersResult" + str(Time.year) \
+foFileName = os.getcwd() + "/OutputData/" + "CratersResult-" + str(Time.year) \
              + "-" + str(Time.month) + "-" + str(Time.day) + ".txt"
 fo = open(foFileName,'wb')
 for i in range(len(CratersResult)):
